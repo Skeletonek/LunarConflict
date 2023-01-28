@@ -28,7 +28,7 @@ public class SettingsScript : MonoBehaviour
     }
     
     public static List<Resolution> Resolutions;
-    
+
     //UI Changers
     public static string UIMoneyMark = "$";
 

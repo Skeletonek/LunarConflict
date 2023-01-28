@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,8 +21,11 @@ public class MainMenuScript : MonoBehaviour
 
     private readonly float[] _difficultyStatsModificators = { 0.7f, 1.0f, 1.5f, 2.0f };
     [SerializeField] private Dropdown resolutionSelector;
+    [SerializeField] private Dropdown framerateSelector;
     [SerializeField] private Toggle fullscreen;
     [SerializeField] private Button defaultFocus;
+    [SerializeField] private GameObject resolutionSection;
+    [SerializeField] private GameObject framerateSection;
 
     public Text musicValue;
     public Slider musicSlider;
@@ -38,6 +43,7 @@ public class MainMenuScript : MonoBehaviour
     
     private void Start()
     {
+#if !UNITY_ANDROID        
         Resolutions = Screen.resolutions.ToList();
         
         resolutionSelector.AddOptions(
@@ -60,7 +66,22 @@ public class MainMenuScript : MonoBehaviour
         // So, don't change this to Screen.currentResolution, or the game will set the lowest resolution possible.
         
         fullscreen.isOn = Screen.fullScreenMode == FullScreenMode.FullScreenWindow;
-
+#endif
+#if UNITY_ANDROID && !UNITY_EDITOR
+        resolutionSection.SetActive(false);
+        // framerateSection.SetActive(true);
+        // var playerFramerate = PlayerPrefs.GetInt("Framerate_Android").ToString();
+        // for (int i = 0; i < resolutionSelector.options.Count; i++)
+        // {
+        //     var framerate = resolutionSelector.options[i].text;
+        //     if (framerate == playerFramerate)
+        //     {
+        //         resolutionSelector.value = i;
+        //         Application.targetFrameRate = int.Parse(resolutionSelector.options[i].text);
+        //         break;
+        //     }
+        // }
+#endif
         Faction = PlayerFaction.None;
         Map = ChoosenMap.None;
         //UnitsStatistics.StatsModifier = _difficultyStatsModificators[1];
@@ -127,11 +148,22 @@ public class MainMenuScript : MonoBehaviour
 
     public void ChangeResolution()
     {
+#if !UNITY_ANDROID && UNITY_EDITOR
         var chosenResolution = Resolutions[resolutionSelector.value];
         Screen.SetResolution(
             chosenResolution.width,
             chosenResolution.height,
             fullscreen.isOn ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
+#endif
+    }
+    
+    public void ChangeFramerate()
+    {
+#if UNITY_ANDROID
+        Application.targetFrameRate = int.Parse(framerateSelector.itemText.ToString());
+        PlayerPrefs.SetInt("Framerate_Android", int.Parse(framerateSelector.itemText.ToString()));
+        Application.targetFrameRate = 60;
+#endif
     }
 
     public void ExitFunction()

@@ -4485,6 +4485,7 @@ MonoBehaviour:
   resolutionSelector: {fileID: 1245746848}
   fullscreen: {fileID: 772482675}
   defaultFocus: {fileID: 1393833081}
+  resolutionSection: {fileID: 1575951655}
   topPanelTheme: {fileID: 525910251}
   queuePanelTheme: {fileID: 154061920}
   downPanelTheme: {fileID: 2145243155}
@@ -16904,7 +16905,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 200, y: -230}
-  m_SizeDelta: {x: 200, y: 40}
+  m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1616343151
 MonoBehaviour:
@@ -18146,7 +18147,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -200, y: -230}
-  m_SizeDelta: {x: 200, y: 40}
+  m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1690535511
 MonoBehaviour:

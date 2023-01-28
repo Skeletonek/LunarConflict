@@ -17,6 +17,7 @@ public class GameUIScript : MonoBehaviour
     [SerializeField] private Dropdown resolutionSelector;
     [SerializeField] private Toggle fullscreen;
     [SerializeField] private Button defaultFocus;
+    [SerializeField] private GameObject resolutionSection;
 
     [Header("-----------------------------------------------------")]
     [Header("Theme Section")]
@@ -74,6 +75,7 @@ public class GameUIScript : MonoBehaviour
 
         ChangeGameTheme();
 
+#if !UNITY_ANDROID  
         // This is a safety mechanism to not throw ArgumentNullException
         // during testing inside Unity Editor
         if (!Application.isEditor)
@@ -92,6 +94,10 @@ public class GameUIScript : MonoBehaviour
 
             fullscreen.isOn = Screen.fullScreenMode == FullScreenMode.FullScreenWindow;
         }
+#endif
+#if UNITY_ANDROID && !UNITY_EDITOR
+        resolutionSection.SetActive(false);
+#endif
 
         // SET TIME SCALE TO NORMAL ON EACH SCENE CHANGE
         SceneManager.activeSceneChanged += (scene1, scene2) => Time.timeScale = 1.0f;;
@@ -171,11 +177,13 @@ public class GameUIScript : MonoBehaviour
     
     public void ChangeResolution()
     {
+#if !UNITY_ANDROID        
         var chosenResolution = Resolutions[resolutionSelector.value];
         Screen.SetResolution(
             chosenResolution.width,
             chosenResolution.height,
             fullscreen.isOn ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
+#endif        
     }
 
     public void CloseSettings()

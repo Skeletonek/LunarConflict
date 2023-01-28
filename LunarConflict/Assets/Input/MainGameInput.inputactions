@@ -148,6 +148,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d76d64f4-d8dc-4f5d-bbbe-252bd926f9ba",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=0.07,y=0.03),InvertVector2",
+                    "groups": "Touch",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "fe1141e0-4675-4a24-87bd-305e9bc8578e",
                     "path": "<Gamepad>/start",
                     "interactions": "",
